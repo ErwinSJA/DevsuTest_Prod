@@ -1,0 +1,722 @@
+{
+	"info": {
+		"_postman_id": "07061b2f-0a8c-4801-ac7b-969fbeca14b6",
+		"name": "APIDevsuTest",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "25124029",
+		"_collection_link": "https://www.postman.com/orange-meadow-869747/workspace/devsu-testing/collection/25124029-07061b2f-0a8c-4801-ac7b-969fbeca14b6?action=share&source=collection_link&creator=25124029"
+	},
+	"item": [
+		{
+			"name": "Cliente",
+			"item": [
+				{
+					"name": "PersonaObtener",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Validar respuesta: 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Validar no devuelva nulo\", () => {\r",
+									"    const response = pm.response.json();\r",
+									"    pm.expect(response.objRespuesta).to.not.eql(null);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://{{servidor}}:{{puerto}}/Cliente/PersonaObtener?pstrIdentificacion=18407645",
+							"protocol": "https",
+							"host": [
+								"{{servidor}}"
+							],
+							"port": "{{puerto}}",
+							"path": [
+								"Cliente",
+								"PersonaObtener"
+							],
+							"query": [
+								{
+									"key": "pstrIdentificacion",
+									"value": "18407645"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "PersonaInsertar",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Successful POST request\", function () {\r",
+									"    pm.expect(pm.response.code).to.be.oneOf([200, 201]);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Validar ante excepciones devuelva null el objRespuesta\", () => {\r",
+									"    const response = pm.response.json();\r",
+									"    if (pm.expect(response.intIdCodigo).to.greaterThan(0)){        \r",
+									"        pm.expect(response.objRespuesta).to.eql(null);\r",
+									"    };\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Validar insercion correcta\", () => {\r",
+									"    const response = pm.response.json();\r",
+									"    pm.expect(response.intIdCodigo).to.eql(0);\r",
+									"    pm.expect(response.blnEstadoRpta).to.eql(true);\r",
+									"    pm.expect(response.objRespuesta).to.greaterThan(0);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"strIdentificacion\": \"71246384\",\r\n  \"strNombre\": \"ULTIMA PRUEBA\",\r\n  \"bytGenero\": 1,\r\n  \"intEdad\": 25,\r\n  \"strDireccion\": \"Calle Dressrosa 547\",\r\n  \"strTelefono\": \"947815492\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://{{servidor}}:{{puerto}}/Cliente/PersonaInsertar",
+							"protocol": "https",
+							"host": [
+								"{{servidor}}"
+							],
+							"port": "{{puerto}}",
+							"path": [
+								"Cliente",
+								"PersonaInsertar"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "PersonaListar",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Validar respuesta: 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Validar que trae al menos un elemento\", () => {\r",
+									"    const response = pm.response.json();\r",
+									"    pm.expect(response.objRespuesta[0].intIdPersona).to.greaterThan(0);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://{{servidor}}:{{puerto}}/Cliente/PersonaListar",
+							"protocol": "https",
+							"host": [
+								"{{servidor}}"
+							],
+							"port": "{{puerto}}",
+							"path": [
+								"Cliente",
+								"PersonaListar"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "PersonaDatosModificar",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"strIdentificacion\": \"71246384\",\r\n  \"strNombre\": \"PRUEBA UPDATE COMPLETO\",\r\n  \"bytGenero\": 1,\r\n  \"intEdad\": 80,\r\n  \"strDireccion\": \"DRESSROSA 150\",\r\n  \"strTelefono\": \"947815492\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://{{servidor}}:{{puerto}}/Cliente/PersonaDatosModificar",
+							"protocol": "https",
+							"host": [
+								"{{servidor}}"
+							],
+							"port": "{{puerto}}",
+							"path": [
+								"Cliente",
+								"PersonaDatosModificar"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "PersonaDatosModificarParcial",
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "[\r\n  {\r\n    \"path\": \"strNombre\",\r\n    \"op\": \"replace\",\r\n    \"value\": \"UPDATE COMPLETO + PARCIAL POSTMAN\"\r\n  },\r\n  {\r\n    \"path\": \"intEdad\",\r\n    \"op\": \"replace\",\r\n    \"value\": \"40\"\r\n  }\r\n]",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://{{servidor}}:{{puerto}}/Cliente/PersonaDatosModificarParcial?pstrIdentificacion=71246384",
+							"protocol": "https",
+							"host": [
+								"{{servidor}}"
+							],
+							"port": "{{puerto}}",
+							"path": [
+								"Cliente",
+								"PersonaDatosModificarParcial"
+							],
+							"query": [
+								{
+									"key": "pstrIdentificacion",
+									"value": "71246384"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "ClienteInsertar",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Validar insercion correcta\", () => {\r",
+									"    const response = pm.response.json();\r",
+									"    pm.expect(response.blnEstadoRpta).to.eql(true);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"strIdentificacion\": \"71246384\",\r\n  \"strClave\": \"154574574575\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://{{servidor}}:{{puerto}}/Cliente/ClienteInsertar",
+							"protocol": "https",
+							"host": [
+								"{{servidor}}"
+							],
+							"port": "{{puerto}}",
+							"path": [
+								"Cliente",
+								"ClienteInsertar"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "ClienteObtener",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://{{servidor}}:{{puerto}}/Cliente/ClienteObtener?pintIdCliente=103",
+							"protocol": "https",
+							"host": [
+								"{{servidor}}"
+							],
+							"port": "{{puerto}}",
+							"path": [
+								"Cliente",
+								"ClienteObtener"
+							],
+							"query": [
+								{
+									"key": "pintIdCliente",
+									"value": "103"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "ClienteListar",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://{{servidor}}:{{puerto}}/Cliente/ClienteListar",
+							"protocol": "https",
+							"host": [
+								"{{servidor}}"
+							],
+							"port": "{{puerto}}",
+							"path": [
+								"Cliente",
+								"ClienteListar"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "ClientePasswordModificar",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"intIdCliente\": 102,\r\n  \"strClave\": \"awfwafwawa\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://{{servidor}}:{{puerto}}/Cliente/ClientePasswordModificar",
+							"protocol": "https",
+							"host": [
+								"{{servidor}}"
+							],
+							"port": "{{puerto}}",
+							"path": [
+								"Cliente",
+								"ClientePasswordModificar"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "ClienteEstadoModificar",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"intIdCliente\": 102,\r\n  \"blnEstado\": true\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://{{servidor}}:{{puerto}}/Cliente/ClienteEstadoModificar",
+							"protocol": "https",
+							"host": [
+								"{{servidor}}"
+							],
+							"port": "{{puerto}}",
+							"path": [
+								"Cliente",
+								"ClienteEstadoModificar"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Cuenta",
+			"item": [
+				{
+					"name": "CuentaInsertar",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"intIdCliente\": 102,\r\n  \"bytTipoCuenta\": 2,\r\n  \"decSaldo\": 4200\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://{{servidor}}:{{puerto}}/Cuenta/CuentaInsertar",
+							"protocol": "https",
+							"host": [
+								"{{servidor}}"
+							],
+							"port": "{{puerto}}",
+							"path": [
+								"Cuenta",
+								"CuentaInsertar"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "CuentaObtener",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://{{servidor}}:{{puerto}}/Cuenta/CuentaObtener?plngIdCuenta=100003",
+							"protocol": "https",
+							"host": [
+								"{{servidor}}"
+							],
+							"port": "{{puerto}}",
+							"path": [
+								"Cuenta",
+								"CuentaObtener"
+							],
+							"query": [
+								{
+									"key": "plngIdCuenta",
+									"value": "100003"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "CuentaListar",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://{{servidor}}:{{puerto}}/Cuenta/CuentaListar?pintIdCliente=102",
+							"protocol": "https",
+							"host": [
+								"{{servidor}}"
+							],
+							"port": "{{puerto}}",
+							"path": [
+								"Cuenta",
+								"CuentaListar"
+							],
+							"query": [
+								{
+									"key": "pintIdCliente",
+									"value": "102"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "CuentaEliminar",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "https://{{servidor}}:{{puerto}}/Cuenta/CuentaEliminar?plngIdCuenta=100004",
+							"protocol": "https",
+							"host": [
+								"{{servidor}}"
+							],
+							"port": "{{puerto}}",
+							"path": [
+								"Cuenta",
+								"CuentaEliminar"
+							],
+							"query": [
+								{
+									"key": "plngIdCuenta",
+									"value": "100004"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Movimiento",
+			"item": [
+				{
+					"name": "MovimientoInsertar",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"lngIdCuenta\": 100002,\r\n  \"strFecha\": \"02/11/2023 10:38:40\",\r\n  \"decSaldoInicial\": 4900,\r\n  \"decValor\": -1400\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://{{servidor}}:{{puerto}}/Movimiento/MovimientoInsertar",
+							"protocol": "https",
+							"host": [
+								"{{servidor}}"
+							],
+							"port": "{{puerto}}",
+							"path": [
+								"Movimiento",
+								"MovimientoInsertar"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "MovimientoObtener",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://{{servidor}}:{{puerto}}/Movimiento/MovimientoObtener?plngIdMovimiento=1",
+							"protocol": "https",
+							"host": [
+								"{{servidor}}"
+							],
+							"port": "{{puerto}}",
+							"path": [
+								"Movimiento",
+								"MovimientoObtener"
+							],
+							"query": [
+								{
+									"key": "plngIdMovimiento",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "MovimientoListarxCuenta",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://{{servidor}}:{{puerto}}/Movimiento/MovimientoListarxCuenta?plngIdCuenta=100002",
+							"protocol": "https",
+							"host": [
+								"{{servidor}}"
+							],
+							"port": "{{puerto}}",
+							"path": [
+								"Movimiento",
+								"MovimientoListarxCuenta"
+							],
+							"query": [
+								{
+									"key": "plngIdCuenta",
+									"value": "100002"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "MovimientoListarxCuentaFecha",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://{{servidor}}:{{puerto}}/Movimiento/MovimientoListarxCuentaFecha?plngIdCuenta=100002&pstrFechaInicio=01-10-2023&pstrFechaFin=03-11-2023",
+							"protocol": "https",
+							"host": [
+								"{{servidor}}"
+							],
+							"port": "{{puerto}}",
+							"path": [
+								"Movimiento",
+								"MovimientoListarxCuentaFecha"
+							],
+							"query": [
+								{
+									"key": "plngIdCuenta",
+									"value": "100002"
+								},
+								{
+									"key": "pstrFechaInicio",
+									"value": "01-10-2023"
+								},
+								{
+									"key": "pstrFechaFin",
+									"value": "03-11-2023"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "MovimientoEliminar",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "https://{{servidor}}:{{puerto}}/Movimiento/MovimientoEliminar?plngIdMovimiento=2",
+							"protocol": "https",
+							"host": [
+								"{{servidor}}"
+							],
+							"port": "{{puerto}}",
+							"path": [
+								"Movimiento",
+								"MovimientoEliminar"
+							],
+							"query": [
+								{
+									"key": "plngIdMovimiento",
+									"value": "2"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Reporte",
+			"item": [
+				{
+					"name": "ReporteEstadoCuenta",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://{{servidor}}:{{puerto}}/Reporte/ReporteEstadoCuenta?pintIdCliente=102&pstrFechaInicio=02-09-2023&pstrFechaFin=03-11-2023",
+							"protocol": "https",
+							"host": [
+								"{{servidor}}"
+							],
+							"port": "{{puerto}}",
+							"path": [
+								"Reporte",
+								"ReporteEstadoCuenta"
+							],
+							"query": [
+								{
+									"key": "pintIdCliente",
+									"value": "102"
+								},
+								{
+									"key": "pstrFechaInicio",
+									"value": "02-09-2023"
+								},
+								{
+									"key": "pstrFechaFin",
+									"value": "03-11-2023"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "servidor",
+			"value": "localhost",
+			"type": "string"
+		},
+		{
+			"key": "puerto",
+			"value": "7113",
+			"type": "string"
+		}
+	]
+}
