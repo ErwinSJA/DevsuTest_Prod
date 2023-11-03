@@ -1,0 +1,8 @@
+version: '3.4'
+
+services:
+  webapi.devsutest:
+    image: ${DOCKER_REGISTRY-}webapidevsutest
+    build:
+      context: .
+      dockerfile: WebAPI.DevsuTest\Dockerfile

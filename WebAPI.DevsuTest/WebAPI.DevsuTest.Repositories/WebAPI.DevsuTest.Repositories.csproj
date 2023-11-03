@@ -1,0 +1,15 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\WebAPI.DevsuTest.Commons\WebAPI.DevsuTest.Commons.csproj" />
+    <ProjectReference Include="..\WebAPI.DevsuTest.Interfaces\WebAPI.DevsuTest.Interfaces.csproj" />
+    <ProjectReference Include="..\WebAPI.DevsuTest.Models\WebAPI.DevsuTest.Models.csproj" />
+  </ItemGroup>
+
+</Project>

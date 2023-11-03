@@ -1,0 +1,30 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <UserSecretsId>05a33aff-9fa9-4726-851d-0fe5c170c6ee</UserSecretsId>
+    <DockerDefaultTargetOS>Windows</DockerDefaultTargetOS>
+    <DockerComposeProjectPath>..\docker-compose.dcproj</DockerComposeProjectPath>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson" Version="6.0.24" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="6.0.24">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.17.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\WebAPI.DevsuTest.Commons\WebAPI.DevsuTest.Commons.csproj" />
+    <ProjectReference Include="..\WebAPI.DevsuTest.DTOs\WebAPI.DevsuTest.DTOs.csproj" />
+    <ProjectReference Include="..\WebAPI.DevsuTest.Interfaces\WebAPI.DevsuTest.Interfaces.csproj" />
+    <ProjectReference Include="..\WebAPI.DevsuTest.Repositories\WebAPI.DevsuTest.Repositories.csproj" />
+    <ProjectReference Include="..\WebAPI.DevsuTest.Setup\WebAPI.DevsuTest.Setup.csproj" />
+    <ProjectReference Include="..\WebAPI.DevsuTest.Util\WebAPI.DevsuTest.Util.csproj" />
+  </ItemGroup>
+
+</Project>

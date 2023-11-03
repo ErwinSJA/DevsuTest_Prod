@@ -1,0 +1,55 @@
+# Archivos de compilación y salida de build
+*.dll
+*.pdb
+*.exe
+*.obj
+*.bin
+*.user
+*.vspscc
+*.vssscc
+*.xap
+*.xaml.cs
+*.dotCover
+*.resharper
+
+# Carpetas de salida de build
+bin/
+obj/
+Debug/
+Release/
+publish/
+.vs/
+
+# Archivos y carpetas de herramientas de compilación
+*.userprefs
+*.log
+*.vs/
+*.tmp
+*.cache/
+*.npm-debug.log*
+*.js.map
+
+# Archivos y carpetas específicos de Visual Studio
+*.suo
+*.user
+*.csproj.user
+*.vcxproj.user
+*.sln.docstates
+*.sln.ide
+
+# Archivos de NuGet
+packages/
+*.nupkg
+*.paket.repos
+.paket/paket.exe
+#*.config
+
+# Otros archivos y carpetas generados
+_*
+*.swp
+*.bak
+*.lock
+Thumbs.db
+.DS_Store
+*.pubxml
+*.pubxml
